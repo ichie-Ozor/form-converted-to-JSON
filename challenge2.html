@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <div>
+        <form action="" method="post">
+            <div>
+                <label for="fName">Full Name</label>
+                <input type="text" id="fName">
+            </div>
+            <div>
+                <label for="email">Emai</label>
+                <input type="text" id="email">
+            </div>
+            <div>
+                <label for="Pnum">Phone number</label>
+                <input type="number" id="Pnum">
+            </div>
+            <div>
+                <label for="address">Address</label>
+                <input type="text" id="address">
+            </div>
+            <div>
+                <button id="btn">submit</button>
+            </div>
+            <div id="btns">
+                <pre></pre>
+            </div>
+            </form>
+    </div>
+    <script>
+    /*******************************************************************
+    The concept is to first put the data from the form into an object 
+    and then convert it to JSON. It is in the JSONformat that it can 
+    be transported to the database
+    ********************************************************************/
+        let frms = []; //this is the arrayobject that collects the form data
+const addFrm = (ev)=>{
+    // This line prevent the form from submitting as it is in the habit 
+    //of all submit button put inside a form to submit once it is clicked
+    ev.preventDefault();
+    let frm = {
+        fullName: document.getElementById('fName').value,
+        email: document.getElementById('email').value,
+        Pnum: document.getElementById('Pnum').value,
+        address: document.getElementById('address').value
+    }
+    frms.push(frm);  //this line pushes a formfiled into the array, frms
+    document.querySelector('form').reset();  //this line refreashes the form
+
+    console.warn('added', {frms});
+    let pre = document.querySelector('#btns pre');
+    pre.textContent = '\n' + JSON.stringify(frms, '\t',2);  //this converts the array frms to JSON
+
+}
+//once cklicked, the addFrm function is called and it loads it on the window page 
+document.addEventListener('DOMContentLoaded', ()=>{
+    document.getElementById('btn').addEventListener('click', addFrm)
+});
+    </script>
+</body>
+</html>
